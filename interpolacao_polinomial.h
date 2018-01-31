@@ -1,0 +1,1 @@
+double metodoLagrange(double*,double*,double, int);
