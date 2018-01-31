@@ -92,20 +92,21 @@ int main()
 				if(opcao == 4)
 					break;
 				int tam;
-				cout << "\nInforme a quantidade de ponto: ";	// Quantidade de pontos para preencher!
+				cout << "\nInforme a quantidade de pontos: ";	// Quantidade de pontos para preencher!
 				cin >> tam;
-				double x[tam], y[tam], valor, result;
+				double x[tam], fx[tam], xUser, result;
 				for(int i = 0; i < tam; i++)	// Preenchendo os pontos!
 				{
 					cout << "\nDigite x(" << i << ") = ";
 				    cin >> x[i];
 				    cout << "\nDigite f(" << x[i] << ") = ";
-				    cin >> y[i];
+				    cin >> fx[i];
 				}
 				cout << "\nInforme o valor de x que deseja obter o valor de fx: ";
-				cin >> valor;
-				result = metodoLagrange(x,y,valor,tam);
-				cout << "\nResultado Lagrange = " << result << endl;
+				cin >> xUser;
+				result = metodoLagrange(x,fx,xUser,tam);
+				cout << "\n=================== Resultado Lagrange =====================\n\n";
+    			cout << "O valor final de L(" << xUser << ") = " << setprecision(4) << result << endl << endl;
 				break;
 			}
 
@@ -116,47 +117,47 @@ int main()
 					break;
 				int m;
 				double a, b, aux,result=0.0;
-				cout<<"Insira o valor de a: ";
+				cout<<"\nInsira o valor de a: ";
 				cin>>a;
 				cout<<"Insira o valor de b: ";
 				cin>>b;
 				cout<<"Insira a quantidade(m) de intervalos: ";
 				cin>>m;
 				if(a>b)
-				{ ///condição para que o valor de b seja sempre o maior valor
+				{ //condição para que o valor de b seja sempre o maior valor
 					aux=a, a=b, b=aux;
 				}
 				switch(opcao)
 				{
 					case 1:
 						result = metodoTrapezio(a,b,m);
-						cout<<"\n--------------RESULTADO--------------"<<endl;
-						cout<<"\nO valor da integral numerica utilizando o metodo dos trapezios eh aproximadamente: "<<fixed<<setprecision(4)<<result<<endl;
+						cout<<"\n==================== Resultado Regra dos Trapezios =====================\n\n";
+						cout<<"Valor da integral = "<<fixed<<setprecision(4)<<result<<endl;
 						break;
 
 					case 2:
 						while(m%2!=0)
 						{
-							cout<<"Nao eh possivel utilizar a Primeira Regra de Simpson devido a quantidade de intervalos(m) nao serem par !!"<<endl;
+							cout<<"Quantidade de intervalos(m) devem ser pares"<<endl;
 							cout<<"\nInsira novamente o numero de intervalos(m):\n";
 							cin>>m;
 						}
 						result = primeiraRegraSimpson(a,b,m);
-						cout<<"\n----------------RESULTADO---------------"<<endl;
-						cout<<"\nO valor da integral numerica utilizando a Primeira Regra de Simpson eh aproximadamente: "<<fixed<<setprecision(4)<<result<<endl;
+						cout<<"\n=================== Resultado 1 Regra de Simpson =====================\n\n";
+						cout<<"\nValor da integral = "<<fixed<<setprecision(4)<<result<<endl;
 						break;
 
 					case 3:
 						while(m%3!=0)
 						{
-							cout<<"Nao eh possivel utilizar a Segunda Regra de Simpson devido a quantidade de intervalos(m) nao serem multiplos de 3!!"<<endl;
+							cout<<"Quantidade de intervalos(m) devem ser multiplo de 3"<<endl;
 							cout<<"\nInsira novamente o numero de intervalos(m):\n";
 							cin>>m;
 						}
 							
 						result = segundaRegraSimpson(a,b,m);
-						cout<<"\n----------------RESULTADO----------------"<<endl;
-						cout<<"\nO valor da integral numerica utilizando o Segunda Regra de Simpson eh aproximadamente: "<<fixed<<setprecision(4)<<result<<endl;
+						cout<<"\n=================== Resultado 2 Regra de Simpson =====================\n\n";
+						cout<<"\nValor da integral = "<<fixed<<setprecision(4)<<result<<endl;
 						break;
 				}
 
