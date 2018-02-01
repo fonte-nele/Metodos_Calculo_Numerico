@@ -22,14 +22,15 @@ int main()
 		{
 			case 1:
 			{
-				int n;
+				int n, iteracoes, k = 0;
 				opcao = menuSistemasLineares();
 				if(opcao == 5)
 					break;
 				cout<<"Insira a ordem da matriz do sistema de equacoes a ser resolvido."<<endl;
 				cout<<"Ordem: ";
 				cin>>n;
-				float termosInd[n], x[n];
+				float termosInd[n], termosCopia[n], x[n], y[n], precisao, erro, det;
+				int pos[n];
 				
 				//Alocar a matriz de coeficientes dinamicamente
 				float **coef = new float*[n];
@@ -50,26 +51,87 @@ int main()
 				{
 					cin>>termosInd[i];
 				}
+				for(int i=0; i<n; i++)
+				{
+					termosCopia[i] = termosInd[i];
+					y[i] = 0;
+				}
 				
 				switch(opcao)
 				{
-					case 1:
-						GaussPivoteamentoParcial(coef, n, termosInd);
+					case 1:	// Gauss Pivotacao Parcial
+						GaussPivParcial(coef, n, termosInd);
 						(*x) = Substituicao_Retroativa(coef, n, termosInd, x);
 						imprimeSolucao(x,n);
 						break;
-					case 2:
-						//LUPivoteamentoParcial();
+					case 2:	// Decomposicao LU Pivotacao Parcial
+					{
+						det = LUPivParcial(coef, pos, n);
+						cout << "Matriz LU resultante:\n";
+						for(int i = 0; i < n; i++)
+						{
+							for(int j = 0; j < n; j++)
+							{
+								cout << coef[i][j] << "\t";
+							}
+							cout << endl;
+						}
+						cout << "Determinante = " << det << endl;
+						for (int i=0; i < n; i++) printf("pos[%2d]=%d \n",i,pos[i]);
+            	 		for (int i=0; i < n; i++) termosInd[i] = termosCopia[pos[i]];
+
+
+            	 		for (int i=0; i < n; i++) printf("b[%2d]=%g \n",i,termosInd[i]);
+			            SubstituicaoProgressiva(coef,y,termosInd,n);
+			            printf("Solucao y resultante:\n");
+			            for (int i=0; i<n; i++){
+			               printf("%g \n",y[i]);
+         				}
+
+         				(*x) = Substituicao_Retroativa(coef, n, y, x);
 						imprimeSolucao(x,n);
 						break;
-					case 3:
-						//Jacobi();
+					}
+					case 3:	// Jacobi
+					{
+						for(int i=0; i<n; i++)
+						{
+							x[i] = 0;
+						}
+						cout<<"Insira a precisao que deseja: ";
+						cin>>precisao;
+						cout<<"Insira a quantidade maxima de iteracoes: ";
+						cin>>iteracoes;
+						erro = (float)INT_MAX;
+						do
+						{
+							erro = Jacobi(coef, n, termosInd, x);
+							k++;
+						}while(erro > precisao && k < iteracoes);
 						imprimeSolucao(x,n);
+						cout<<"Erro = "<<erro<<endl;
 						break;
-					case 4:
-						//GaussSeidel();
+					}
+					case 4:	// Gauss-Seidel
+					{
+						for(int i=0; i<n; i++)
+						{
+							x[i] = 0;
+						}
+						cout<<"Insira a precisao que deseja: ";
+						cin>>precisao;
+						cout<<"Insira a quantidade maxima de iteracoes: ";
+						cin>>iteracoes;
+						erro = (float)INT_MAX;
+						do
+						{
+							erro = GaussSeidel(coef, n, termosInd, x);
+							k++;
+						}while(erro > precisao && k < iteracoes);
 						imprimeSolucao(x,n);
+						cout<<"Erro = "<<erro<<endl;
 						break;
+					}
 					case 5:
 						break;
 					default:
@@ -92,10 +154,10 @@ int main()
 				if(opcao == 4)
 					break;
 				int tam;
-				cout << "\nInforme a quantidade de pontos: ";	// Quantidade de pontos para preencher!
+				cout << "\nInforme o grau do polinomio: ";	// Quantidade de pontos para preencher!
 				cin >> tam;
-				double x[tam], fx[tam], xUser, result;
-				for(int i = 0; i < tam; i++)	// Preenchendo os pontos!
+				double x[tam+1], fx[tam+1], xUser, result;
+				for(int i = 0; i <= tam; i++)	// Preenchendo os pontos!
 				{
 					cout << "\nDigite x(" << i << ") = ";
 				    cin >> x[i];
@@ -104,9 +166,27 @@ int main()
 				}
 				cout << "\nInforme o valor de x que deseja obter o valor de fx: ";
 				cin >> xUser;
-				result = metodoLagrange(x,fx,xUser,tam);
-				cout << "\n=================== Resultado Lagrange =====================\n\n";
-    			cout << "O valor final de L(" << xUser << ") = " << setprecision(4) << result << endl << endl;
+				switch(opcao)
+				{
+					case 1:
+						result = metodoLagrange(x,fx,xUser,tam+1);
+						cout << "\n=================== Resultado Lagrange =====================\n\n";
+    					cout << "O valor final de L(" << xUser << ") = " << setprecision(4) << result << endl << endl;
+    					break;
+
+    				case 2:
+    					result = metodoDiferencasDivididas(x,fx,xUser,tam);
+    					cout << "\n=================== Resultado Diferencas Divididas =====================\n\n";
+    					cout << "O valor final de p(" << xUser << ") = " << setprecision(4) << result << endl << endl;
+    					break;
+
+    				case 3:
+    					result = metodoDiferencasFinitasAsc(x,fx,xUser,tam);
+    					cout << "\n================= Resultado Diferencas Finitas Ascendentes ===================\n\n";
+    					cout << "O valor final de p(" << xUser << ") = " << setprecision(4) << result << endl << endl;
+    					break;
+				}
+				
 				break;
 			}
 
