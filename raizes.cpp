@@ -4,7 +4,8 @@ using namespace std;
 
 double funcao(double x)
 {
-	return (pow(x,4) - 2*pow(x,3) + 4*x - 1.4331);	// Funcao que deseja encontrar a raiz!
+	//return (pow(x,4) - 2*pow(x,3) + 4*x - 1.4331);	// Funcao que deseja encontrar a raiz!
+	return (exp(x) - pow(x,2) + 4);
 }
 
 double derivada(double x)

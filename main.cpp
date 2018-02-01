@@ -26,8 +26,8 @@ int main()
 				opcao = menuSistemasLineares();
 				if(opcao == 5)
 					break;
-				cout<<"Insira a ordem da matriz do sistema de equacoes a ser resolvido."<<endl;
-				cout<<"Ordem: ";
+				cout<<"\nInsira a ordem da matriz do sistema de equacoes a ser resolvido."<<endl;
+				cout<<"Ordem = ";
 				cin>>n;
 				float termosInd[n], termosCopia[n], x[n], y[n], precisao, erro, det;
 				int pos[n];
@@ -38,7 +38,7 @@ int main()
 				{
 					coef[i] = new float[n];
 				}
-				cout<<"Preencha os valores da matriz de coeficientes"<<endl;
+				cout<<"\nPreencha os valores da matriz de coeficientes"<<endl;
 				for(int i=0; i<n; i++)
 				{
 					for(int j=0; j<n; j++)
@@ -46,7 +46,7 @@ int main()
 						cin>>coef[i][j];
 					}
 				}
-				cout<<"Insira o vetor de termos independentes"<<endl;
+				cout<<"\nInsira o vetor de termos independentes"<<endl;
 				for(int i=0; i<n; i++)
 				{
 					cin>>termosInd[i];
@@ -67,7 +67,7 @@ int main()
 					case 2:	// Decomposicao LU Pivotacao Parcial
 					{
 						det = LUPivParcial(coef, pos, n);
-						cout << "Matriz LU resultante:\n";
+						cout << "\nMatriz LU resultante:\n";
 						for(int i = 0; i < n; i++)
 						{
 							for(int j = 0; j < n; j++)
@@ -76,14 +76,14 @@ int main()
 							}
 							cout << endl;
 						}
-						cout << "Determinante = " << det << endl;
-						for (int i=0; i < n; i++) printf("pos[%2d]=%d \n",i,pos[i]);
+						cout << "\nDeterminante = " << det << endl;
+						//for (int i=0; i < n; i++) printf("pos[%2d]=%d \n",i,pos[i]);
             	 		for (int i=0; i < n; i++) termosInd[i] = termosCopia[pos[i]];
 
 
-            	 		for (int i=0; i < n; i++) printf("b[%2d]=%g \n",i,termosInd[i]);
+            	 		//for (int i=0; i < n; i++) printf("b[%2d]=%g \n",i,termosInd[i]);
 			            SubstituicaoProgressiva(coef,y,termosInd,n);
-			            printf("Solucao y resultante:\n");
+			            printf("\nSolucao y resultante:\n");
 			            for (int i=0; i<n; i++){
 			               printf("%g \n",y[i]);
          				}
@@ -98,9 +98,9 @@ int main()
 						{
 							x[i] = 0;
 						}
-						cout<<"Insira a precisao que deseja: ";
+						cout<<"\nInsira a precisao que deseja = ";
 						cin>>precisao;
-						cout<<"Insira a quantidade maxima de iteracoes: ";
+						cout<<"Insira a quantidade maxima de iteracoes = ";
 						cin>>iteracoes;
 						erro = (float)INT_MAX;
 						do
@@ -197,11 +197,11 @@ int main()
 					break;
 				int m;
 				double a, b, aux,result=0.0;
-				cout<<"\nInsira o valor de a: ";
+				cout<<"\nInsira o valor de a = ";
 				cin>>a;
-				cout<<"Insira o valor de b: ";
+				cout<<"Insira o valor de b = ";
 				cin>>b;
-				cout<<"Insira a quantidade(m) de intervalos: ";
+				cout<<"Insira a quantidade(m) de intervalos = ";
 				cin>>m;
 				if(a>b)
 				{ //condição para que o valor de b seja sempre o maior valor
@@ -266,19 +266,25 @@ int main()
 				{
 					case 1:
 						result = bissecao(a,b,&precisao);
-						cout << "\nRaiz Bissecao = " << fixed << setprecision(4) << result << endl;
+						cout<<"\n=================== Resultado Bissecao =====================\n\n";						
+						cout << "Polinomio -> e^x - x^2 +4 = 0" << endl;						
+						cout << "Raiz Bissecao = " << fixed << setprecision(4) << result << endl;
 						cout << "Precisao = " << fixed << setprecision(5) << precisao << endl;
 						break;
 
 					case 2:
 						result = falsaPosicao(a,b,&precisao);
-						cout << "\nRaiz Falsa Posicao = " << fixed << setprecision(4) << result << endl;
+						cout<<"\n=================== Resultado Bissecao =====================\n\n";	
+						cout << "Polinomio -> e^x - x^2 +4 = 0" << endl;
+						cout << "Raiz Falsa Posicao = " << fixed << setprecision(4) << result << endl;
 						cout << "Precisao = " << fixed << setprecision(5) << precisao << endl;
 						break;
 
 					case 3:
 						result = newtonRaphson(a,&precisao);
-						cout << "\nRaiz Newton-Raphson = " << fixed << setprecision(4) << result << endl;
+						cout<<"\n=================== Resultado Bissecao =====================\n\n";	
+						cout << "Polinomio -> x^4 - 2*x^3 + 4*x - 1.4331" << endl;
+						cout << "Raiz Newton-Raphson = " << fixed << setprecision(4) << result << endl;
 						cout << "Precisao = " << fixed << setprecision(5) << precisao << endl;
 						break;
 				} 
