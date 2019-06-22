@@ -126,9 +126,10 @@ int main()
 						do
 						{
 							erro = GaussSeidel(coef, n, termosInd, x);
+							imprimeSolucao(x,n);
 							k++;
 						}while(erro > precisao && k < iteracoes);
-						imprimeSolucao(x,n);
+						
 						cout<<"Erro = "<<erro<<endl;
 						break;
 					}
@@ -139,7 +140,7 @@ int main()
 						break;
 				}
 				
-				//Liberar memória da matriz de coeficientes
+				//Liberar memoria da matriz de coeficientes
 				for(int i=0; i<n; ++i)
 				{
 					delete []coef[i];
@@ -267,23 +268,23 @@ int main()
 					case 1:
 						result = bissecao(a,b,&precisao);
 						cout<<"\n=================== Resultado Bissecao =====================\n\n";						
-						cout << "Polinomio -> e^x - x^2 +4 = 0" << endl;						
+						//cout << "Polinomio -> e^x - x^2 +4 = 0" << endl;						
 						cout << "Raiz Bissecao = " << fixed << setprecision(4) << result << endl;
 						cout << "Precisao = " << fixed << setprecision(5) << precisao << endl;
 						break;
 
 					case 2:
 						result = falsaPosicao(a,b,&precisao);
-						cout<<"\n=================== Resultado Bissecao =====================\n\n";	
-						cout << "Polinomio -> e^x - x^2 +4 = 0" << endl;
+						cout<<"\n=================== Resultado Falsa Posicao =====================\n\n";	
+						//cout << "Polinomio -> e^x - x^2 +4 = 0" << endl;
 						cout << "Raiz Falsa Posicao = " << fixed << setprecision(4) << result << endl;
 						cout << "Precisao = " << fixed << setprecision(5) << precisao << endl;
 						break;
 
 					case 3:
 						result = newtonRaphson(a,&precisao);
-						cout<<"\n=================== Resultado Bissecao =====================\n\n";	
-						cout << "Polinomio -> x^4 - 2*x^3 + 4*x - 1.4331" << endl;
+						cout<<"\n=================== Resultado Newton-Raphson =====================\n\n";	
+						//cout << "Polinomio -> x^4 - 2*x^3 + 4*x - 1.4331" << endl;
 						cout << "Raiz Newton-Raphson = " << fixed << setprecision(4) << result << endl;
 						cout << "Precisao = " << fixed << setprecision(5) << precisao << endl;
 						break;

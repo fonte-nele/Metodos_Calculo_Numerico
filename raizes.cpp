@@ -5,12 +5,12 @@ using namespace std;
 double funcao(double x)
 {
 	//return (pow(x,4) - 2*pow(x,3) + 4*x - 1.4331);	// Funcao que deseja encontrar a raiz!
-	return (exp(x) - pow(x,2) + 4);
+	return (pow(x,5) - 2 *pow(x,4) - 7 * pow(x, 3) + 9 * pow(x, 2) + 8*x - 6);
 }
 
 double derivada(double x)
 {
-	return (4*pow(x,3) - 6*pow(x,2) + 4);	// Funcao para usuario informar a derivada!
+	return (5*pow(x,4) - 8*pow(x,3) - 21 * pow(x,2) + 18*x);	// Funcao para usuario informar a derivada!
 }
 
 double bissecao(double a , double b, double *precisao)
@@ -24,6 +24,7 @@ double bissecao(double a , double b, double *precisao)
 			x = (a+b)/2;	// Funcao de iteracao!
 			f_x = funcao(x);
 			erro = abs(f_x);
+			cout << "Raiz " << x << endl;
 			if(f_a * f_x > 0)
 				a = x;
 			else
@@ -71,6 +72,7 @@ double newtonRaphson(double xi, double *precisao)
 	double x, erro;
 
 	do{
+		cout << "Raiz " << xi << endl;
 		x = xi - (funcao(xi) / derivada(xi));
 
 		erro = abs(funcao(xi));

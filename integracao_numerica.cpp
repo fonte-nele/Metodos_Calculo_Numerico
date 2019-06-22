@@ -5,7 +5,7 @@ using namespace std;
 double funcaoIntegracao(double x)
 {
 	//return (pow(x,3)*log(x));
-	return (1 - exp(-x));
+	return 0.2 + 25*x -200*pow(x,2) + 675*pow(x,3) - 900*pow(x,4) + 400*pow(x,5);
 }
 
 double metodoTrapezio(double a, double b, int m)
